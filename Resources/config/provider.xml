@@ -9,6 +9,8 @@
         <parameter key="sonata.media.provider.youtube.class">Sonata\MediaBundle\Provider\YouTubeProvider</parameter>
         <parameter key="sonata.media.provider.dailymotion.class">Sonata\MediaBundle\Provider\DailyMotionProvider</parameter>
         <parameter key="sonata.media.provider.vimeo.class">Sonata\MediaBundle\Provider\VimeoProvider</parameter>
+        <parameter key="sonata.media.provider.audio.class">Sonata\MediaBundle\Provider\AudioProvider</parameter>
+        <parameter key="sonata.media.provider.video.class">Sonata\MediaBundle\Provider\VideoProvider</parameter>
 
         <parameter key="sonata.media.thumbnail.format">Sonata\MediaBundle\Thumbnail\FormatThumbnail</parameter>
         <parameter key="sonata.media.thumbnail.format.default">jpg</parameter>        
@@ -117,6 +119,43 @@
                 </argument>
             </call>
         </service>
+
+        <service id="sonata.media.provider.audio" class="%sonata.media.provider.audio.class%">
+            <tag name="sonata.media.provider" />
+            <argument>sonata.media.provider.audio</argument>
+            <argument />
+            <argument />
+            <argument />
+            <argument type="service" id="sonata.media.thumbnail.format" />
+            <argument />
+            <argument />
+
+            <call method="setTemplates">
+                <argument type="collection">
+                    <argument key='helper_thumbnail'>SonataMediaBundle:Provider:thumbnail.html.twig</argument>
+                    <argument key='helper_view'>SonataMediaBundle:Provider:view_audio.html.twig</argument>
+                </argument>
+            </call>
+        </service>
+
+        <service id="sonata.media.provider.video" class="%sonata.media.provider.video.class%">
+            <tag name="sonata.media.provider" />
+            <argument>sonata.media.provider.video</argument>
+            <argument />
+            <argument />
+            <argument />
+            <argument type="service" id="sonata.media.thumbnail.format" />
+            <argument />
+            <argument />
+
+            <call method="setTemplates">
+                <argument type="collection">
+                    <argument key='helper_thumbnail'>SonataMediaBundle:Provider:thumbnail.html.twig</argument>
+                    <argument key='helper_view'>SonataMediaBundle:Provider:view_video.html.twig</argument>
+                </argument>
+            </call>
+        </service>
+
 
         <service id="sonata.media.buzz.connector.file_get_contents" class="Buzz\Client\FileGetContents" />
         <service id="sonata.media.buzz.connector.curl" class="Buzz\Client\Curl" />
