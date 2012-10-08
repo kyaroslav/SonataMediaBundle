@@ -288,6 +288,7 @@ class Configuration implements ConfigurationInterface
                                         'mp3', // mp3
                                         'm4a', 'm4b', 'm4p', 'm4v', 'm4r', '3gp', 'mp4', 'aac', // AAC-LC
                                         // HE-AAC
+                                        'flv',
                                     ))
                                 ->end()
                                 ->arrayNode('allowed_mime_types')
@@ -299,6 +300,7 @@ class Configuration implements ConfigurationInterface
                                         'audio/aac', 'audio/aacp', 'audio/mp4', 'audio/MP4A-LATM', 'audio/mpeg4-generic', // AAC-LC
                                         'audio/3gpp', 'audio/3gpp2', // AAC-LC or HE-AAC
                                         'audio/aacp', // HE-AAC
+                                        'video/x-flv', // Recorded sound
                                     ))
                                 ->end()
                             ->end()
@@ -319,6 +321,7 @@ class Configuration implements ConfigurationInterface
                                     'mp4', 'm4a', 'm4p', 'm4b', 'm4r', 'm4v', // MP4
                                     'webm', // WebM
                                     'ogv', 'ogx', 'ogg', 'spx', // Ogg
+                                    'flv',
                                 ))
                             ->end()
                             ->arrayNode('allowed_mime_types')
@@ -327,6 +330,7 @@ class Configuration implements ConfigurationInterface
                                 'video/mp4', // MP4
                                 'video/webm', // WebM
                                 'video/ogg', // Ogg
+                                'video/x-flv', //recorded video
                             ))
                             ->end()
                         ->end()

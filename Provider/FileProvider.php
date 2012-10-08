@@ -179,6 +179,10 @@ class FileProvider extends BaseProvider
             $media->setMetadataValue('filename', $media->getBinaryContent()->getBasename());
         }
 
+        if (stristr($media->getContentType(),'audio')) {
+            $media->setMetadataValue('duration', '00:02');
+        }
+
         // this is the original name
         if (!$media->getName()) {
             throw new \RuntimeException('Please define a valid media\'s name');
