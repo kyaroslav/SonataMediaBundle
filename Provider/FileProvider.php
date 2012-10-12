@@ -110,6 +110,22 @@ class FileProvider extends BaseProvider
         $this->setFileContents($media);
 
         $this->generateThumbnails($media);
+
+        if (stristr($media->getProviderName(), 'audio')) {
+            $duration = '00:00';
+
+            $filePath = '/home/osa/projects/muzzing/muzz/web'. $this->generatePublicUrl($media, 'reference');
+
+            if(file_exists($filePath)) {
+                $time = exec("ffmpeg -i " . escapeshellarg($filePath) . " 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//");
+                list($hms, $milli) = explode('.', $time);
+                list($hours, $minutes, $seconds) = explode(':', $hms);
+                $totalSeconds = ($hours * 3600) + ($minutes * 60) + $seconds;
+                $duration = gmdate("i:s", $totalSeconds);
+            }
+
+            $media->setMetadataValue('duration', $duration);
+        }
     }
 
     /**
@@ -177,10 +193,6 @@ class FileProvider extends BaseProvider
         } else if ($media->getBinaryContent() instanceof File) {
             $media->setName($media->getBinaryContent()->getBasename());
             $media->setMetadataValue('filename', $media->getBinaryContent()->getBasename());
-        }
-
-        if (stristr($media->getContentType(),'audio')) {
-            $media->setMetadataValue('duration', '00:02');
         }
 
         // this is the original name
