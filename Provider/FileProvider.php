@@ -114,7 +114,7 @@ class FileProvider extends BaseProvider
         if (stristr($media->getProviderName(), 'audio')) {
             $duration = '00:00';
 
-            $filePath = '/home/osa/projects/muzzing/muzz/web'. $this->generatePublicUrl($media, 'reference');
+            $filePath = __DIR__ . '/../../../../../web' . $this->generatePublicUrl($media, 'reference');
 
             if(file_exists($filePath)) {
                 $time = exec("ffmpeg -i " . escapeshellarg($filePath) . " 2>&1 | grep 'Duration' | cut -d ' ' -f 4 | sed s/,//");
