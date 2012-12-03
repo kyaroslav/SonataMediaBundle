@@ -126,6 +126,17 @@ class FileProvider extends BaseProvider
 
             $media->setMetadataValue('duration', $duration);
         }
+
+        if (stristr($media->getProviderName(), 'video')) {
+            $pathToWeb = __DIR__ . '/../../../../../web';
+            $filePath = $pathToWeb . $this->generatePublicUrl($media, 'reference');
+
+            if(file_exists($filePath)) {
+                $thumbnailPath = '/uploads/media/cards_media/'.md5($media->getProviderReference()).".jpg";
+                $preview = exec("avconv -ss 00:00:01 -i " . $filePath . " -vframes 1 -y -s 80x50  ".$pathToWeb.$thumbnailPath);
+                $media->setMetadataValue('thumbnail', $thumbnailPath);
+            }
+        }
     }
 
     /**
